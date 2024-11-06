@@ -1,3 +1,15 @@
+CREATE TABLE `commande_lignes` (
+	`id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`commande_id` INT,
+	`produit_id` INT,
+	`quantite` INT,
+	`total_ht` DOUBLE(40,2),
+	`total_ttc` DOUBLE(40,2)
+);
+ALTER TABLE `commande_lignes` ADD INDEX(`commande_id`);
+ALTER TABLE `commande_lignes` ADD INDEX(`produit_id`);
+
+
 insert into commande_lignes (id, commande_id, produit_id, quantite, total_ht, total_ttc) values (1, 61, 133, 36, ROUND((SELECT prix_ht_unitaire FROM `produits` WHERE `id`=`produit_id`)*quantite,2), ROUND(((total_ht*5.5)/100)+total_ht,2));
 insert into commande_lignes (id, commande_id, produit_id, quantite, total_ht, total_ttc) values (2, 110, 118, 46, ROUND((SELECT prix_ht_unitaire FROM `produits` WHERE `id`=`produit_id`)*quantite,2), ROUND(((total_ht*5.5)/100)+total_ht,2));
 insert into commande_lignes (id, commande_id, produit_id, quantite, total_ht, total_ttc) values (3, 235, 187, 90, ROUND((SELECT prix_ht_unitaire FROM `produits` WHERE `id`=`produit_id`)*quantite,2), ROUND(((total_ht*5.5)/100)+total_ht,2));
