@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  db:
+    container_name: sql.hackoeil
+    image: mysql:8.0.33
+    platform: linux/x86_64
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d
+      - db_app:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_test
+      MYSQL_USER: utilisateur
+      MYSQL_PASSWORD: secret
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+volumes:
+  db_app:
